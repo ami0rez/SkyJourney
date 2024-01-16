@@ -83,7 +83,7 @@ const FlightComponent = () => {
       try {
         handleLoading(true);
         const res: FlightResponseMainResponse = await flightFindAll(obj);
-        if(!res.response?.length){
+        if(!res.response?.count){
           showError('No flights found for the search parameters')
         }
         const mapper = flightMapper(res);

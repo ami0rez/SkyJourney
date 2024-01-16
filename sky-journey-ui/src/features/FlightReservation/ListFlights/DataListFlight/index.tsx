@@ -81,7 +81,7 @@ const DataListFlight = ({ itemData }: IDataListFlight) => {
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <ButtonBase sx={{ width: 128, height: 128 }}>
-                    <h3>TUIFLY</h3>
+                    <h3>Sky Journey</h3>
                   </ButtonBase>
                 </Grid>
                 <Grid item xs={8} container direction="column">

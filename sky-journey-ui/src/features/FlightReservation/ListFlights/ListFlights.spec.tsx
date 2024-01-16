@@ -45,7 +45,7 @@ describe("FlightComponent", () => {
     expect(content[1]).toHaveTextContent("Departure Cit test");
     const button = container.getElementsByTagName("button");
 
-    expect(button[0]).toHaveAccessibleName("TUIFLY");
+    expect(button[0]).toHaveAccessibleName("Sky Journey");
     const reserve = container.getElementsByClassName("reservation");
     expect(reserve[0]).toHaveAccessibleName("Reserve");
   });

@@ -15,7 +15,7 @@ export const dateFormat = (time: Date | undefined) => {
 };
 
 export const sortPriceMapper = (results: FlightResponseMainResponse) =>
-  results.response?.sort((a: FlightResponse, b: FlightResponse) => {
+  results.response?.rows?.sort((a: FlightResponse, b: FlightResponse) => {
     if (a?.price && b?.price) {
       return a.price - b.price;
     }

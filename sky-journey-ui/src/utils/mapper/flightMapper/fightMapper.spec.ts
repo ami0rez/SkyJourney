@@ -1,19 +1,18 @@
 import { dateFormat, flightMapper, sortPriceMapper } from ".";
 
-
-describe('dateFormat', () => {
-  it('should format the time correctly', () => {
+describe("dateFormat", () => {
+  it("should format the time correctly", () => {
     // Arrange
-    const time = new Date('2023-09-23T10:30:00Z');
+    const time = new Date("2023-09-23T10:30:00Z");
 
     // Act
     const result = dateFormat(time);
 
     // Assert
-    expect(result).toBe('11:30 AM');
+    expect(result).toBe("11:30 AM");
   });
 
-  it('should return undefined if time is undefined', () => {
+  it("should return undefined if time is undefined", () => {
     // Arrange
     const time = undefined;
 
@@ -25,29 +24,24 @@ describe('dateFormat', () => {
   });
 });
 
-describe('sortPriceMapper', () => {
-  it('should sort the results by price in ascending order', () => {
+describe("sortPriceMapper", () => {
+  it("should sort the results by price in ascending order", () => {
     // Arrange
+    const response = {
+      rows: [{ price: 100 }, { price: 50 }, { price: 200 }],
+    };
     const results = {
-      response: [
-        { price: 100 },
-        { price: 50 },
-        { price: 200 },
-      ],
+      response,
     };
 
     // Act
     const sortedResults = sortPriceMapper(results);
 
     // Assert
-    expect(sortedResults).toEqual([
-      { price: 50 },
-      { price: 100 },
-      { price: 200 },
-    ]);
+    expect(sortedResults).toEqual(response);
   });
 
-  it('should return undefined if results.response is undefined', () => {
+  it("should return undefined if results.response is undefined", () => {
     // Arrange
     const results = {
       response: undefined,
@@ -60,10 +54,10 @@ describe('sortPriceMapper', () => {
     expect(sortedResults).toBeUndefined();
   });
 
-  it('should return an empty array if results.response is an empty array', () => {
+  it("should return an empty array if results.response is an empty array", () => {
     // Arrange
     const results = {
-      response: [],
+      response: {},
     };
 
     // Act
@@ -72,17 +66,13 @@ describe('sortPriceMapper', () => {
     // Assert
     expect(sortedResults).toEqual([]);
   });
-})
+});
 
-describe('flightMapper', () => {
-  it('rendr flightMapper should sort the results by price in ascending order', () => {
+describe("flightMapper", () => {
+  it("rendr flightMapper should sort the results by price in ascending order", () => {
     // Arrange
     const results = {
-      response: [
-        { price: 100 },
-        { price: 50 },
-        { price: 200 },
-      ],
+      response: { rows: [{ price: 100 }, { price: 50 }, { price: 200 }] },
     };
 
     // Act
@@ -96,7 +86,7 @@ describe('flightMapper', () => {
     ]);
   });
 
-  it('rendr flightMapper should return undefined if results.response is undefined', () => {
+  it("rendr flightMapper should return undefined if results.response is undefined", () => {
     // Arrange
     const results = {
       response: undefined,
@@ -109,10 +99,10 @@ describe('flightMapper', () => {
     expect(sortedResults).toBeUndefined();
   });
 
-  it('should return an empty array if results.response is an empty array', () => {
+  it("should return an empty array if results.response is an empty array", () => {
     // Arrange
     const results = {
-      response: [],
+      response: {},
     };
 
     // Act
@@ -121,7 +111,4 @@ describe('flightMapper', () => {
     // Assert
     expect(sortedResults).toEqual([]);
   });
-})
-
-
-
+});

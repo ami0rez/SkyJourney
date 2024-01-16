@@ -4,6 +4,8 @@
 // </auto-generated>
 //----------------------
 
+import { PaginationResponse } from "../../common/types/pagination-response";
+
 /* tslint:disable */
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
@@ -325,7 +327,7 @@ export interface FlightResponse {
 }
 
 export interface FlightResponseMainResponse {
-  response?: Array<FlightResponse>;
+  response?: PaginationResponse<FlightResponse>;
   message?: string;
   error?: boolean;
 }
