@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using SkyJourney.Api.Controllers.Flights.Models.Queries;
 using SkyJourney.Api.Controllers.Flights.Models.Responses;
@@ -33,7 +34,7 @@ namespace SkyJourney.Api.Services.Flights
             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
             _logger = loggerFactory?.CreateLogger<IFlightService>() ?? throw new ArgumentNullException(nameof(loggerFactory));
         }
-        public async Task<IEnumerable<FlightResponse>> GetAll(FlightQuery query)
+        public async Task<PaginationResponse<FlightResponse>> GetAll(FlightQuery query)
         {
             ValidateFlightQuery(query);
 
@@ -62,16 +63,22 @@ namespace SkyJourney.Api.Services.Flights
         {
             return flights.Where(f => f.ArrivalDate.HasValue && f.ArrivalDate.Value.Date == arrivalDate.Date);
         }
-        private async Task<IEnumerable<FlightResponse>> PaginateAndMapFlightsAsync(IQueryable<FlightEntity> flights, FlightQuery query)
+        private async Task<PaginationResponse<FlightResponse>> PaginateAndMapFlightsAsync(IQueryable<FlightEntity> flights, FlightQuery query)
         {
+            var count = await flights.CountAsync();
+
             int skipCount = (query.PageNumber - 1) * query.PageSize;
-            var pagedFlights = await flights
+            var pagedFlights = flights
                 .OrderBy(f => f.Price)
                 .Skip(skipCount)
-                .Take(query.PageSize)
-                .ToListAsync();
+                .Take(query.PageSize);
+            var results = await _mapper.ProjectTo<FlightResponse>(pagedFlights).ToListAsync();
 
-            return _mapper.Map<IEnumerable<FlightResponse>>(pagedFlights);
+            return new PaginationResponse<FlightResponse>
+            {
+                Count = count,
+                Rows = results,
+            };
         }
 
 

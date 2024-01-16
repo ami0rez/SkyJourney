@@ -38,9 +38,9 @@ namespace SkyJourney.Api.Controllers.Flights
         }
 
         [HttpPost("findAll")]
-        public async Task<ActionResult<MainResponse<FlightResponse>>> GetAll([FromBody] FlightQuery model)
+        public async Task<ActionResult<MainResponse<PaginationResponse<FlightResponse>>>> GetAll([FromBody] FlightQuery model)
         {
-            var res = new MainResponse<IEnumerable<FlightResponse>>();
+            var res = new MainResponse<PaginationResponse<FlightResponse>>();
             var message = "success";
             try
             {
